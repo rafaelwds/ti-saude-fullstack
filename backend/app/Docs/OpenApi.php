@@ -6,7 +6,7 @@ use OpenApi\Attributes as OA;
 
 #[OA\Info(
     title: 'Ti Saúde API',
-    version: '1.0.0',
+    version: '1.0.1',
     description: 'Documentação da API do desafio fullstack'
 )]
 #[OA\Server(

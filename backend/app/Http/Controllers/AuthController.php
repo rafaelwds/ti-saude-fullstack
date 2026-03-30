@@ -9,6 +9,32 @@ use OpenApi\Attributes as OA;
 
 class AuthController extends Controller
 {
+    #[OA\Post(
+        path: '/api/register',
+        tags: ['Autenticação'],
+        summary: 'Registra um novo usuário',
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                required: ['name', 'email', 'password'],
+                properties: [
+                    new OA\Property(property: 'name', type: 'string', example: 'Rafael'),
+                    new OA\Property(property: 'email', type: 'string', example: 'rafael@email.com'),
+                    new OA\Property(property: 'password', type: 'string', example: '123456'),
+                ]
+            )
+        ),
+        responses: [
+            new OA\Response(
+                response: 201,
+                description: 'Usuário criado com sucesso'
+            ),
+            new OA\Response(
+                response: 422,
+                description: 'Erro de validação'
+            ),
+        ]
+    )]
     public function register(Request $request)
     {
         $data = $request->validate([
@@ -79,11 +105,43 @@ class AuthController extends Controller
         ]);
     }
 
+    #[OA\Get(
+        path: '/api/me',
+        tags: ['Autenticação'],
+        summary: 'Retorna o usuário autenticado',
+        security: [['bearerAuth' => []]],
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Usuário autenticado retornado com sucesso'
+            ),
+            new OA\Response(
+                response: 401,
+                description: 'Não autenticado'
+            ),
+        ]
+    )]
     public function me()
     {
         return response()->json(auth('api')->user());
     }
 
+     #[OA\Post(
+        path: '/api/logout',
+        tags: ['Autenticação'],
+        summary: 'Realiza logout do usuário',
+        security: [['bearerAuth' => []]],
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Logout realizado com sucesso'
+            ),
+            new OA\Response(
+                response: 401,
+                description: 'Não autenticado'
+            ),
+        ]
+    )]
     public function logout()
     {
         auth('api')->logout();
