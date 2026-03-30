@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use OpenApi\Attributes as OA;
 
 class AuthController extends Controller
 {
@@ -28,6 +29,37 @@ class AuthController extends Controller
         ], 201);
     }
 
+    #[OA\Post(
+        path: '/api/login',
+        tags: ['Autenticação'],
+        summary: 'Realiza login do usuário',
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                required: ['email', 'password'],
+                properties: [
+                    new OA\Property(property: 'email', type: 'string', example: 'rafael@email.com'),
+                    new OA\Property(property: 'password', type: 'string', example: '123456'),
+                ]
+            )
+        ),
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Login realizado com sucesso',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'access_token', type: 'string', example: 'TOKEN_JWT'),
+                        new OA\Property(property: 'token_type', type: 'string', example: 'bearer'),
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: 401,
+                description: 'Credenciais inválidas'
+            ),
+        ]
+    )]
     public function login(Request $request)
     {
         $credentials = $request->validate([
