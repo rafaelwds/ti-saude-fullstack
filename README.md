@@ -1,13 +1,13 @@
 # Ti Saúde Fullstack
 
-Projeto fullstack desenvolvido com:
+Projeto fullstack desenvolvido como desafio técnico, contendo:
 
-- Backend em Laravel
-- Autenticação com JWT
-- Documentação com Swagger
-- Frontend web com Quasar
-- Banco de dados MySQL
-- Ambiente com Docker
+- **Backend:** Laravel
+- **Autenticação:** JWT
+- **Documentação da API:** Swagger
+- **Frontend web:** Quasar
+- **Banco de dados:** MySQL
+- **Ambiente local:** Docker
 
 ---
 
@@ -17,7 +17,8 @@ Antes de começar, é necessário ter instalado:
 
 - Docker
 - Docker Compose
-- Node.js 22.22.0 ou superior
+- **Node.js 22.22.0 ou superior**
+  > Importante: o frontend em Quasar foi configurado e testado com **Node 22.22.0**.
 - npm
 
 ---
@@ -35,85 +36,101 @@ ti-saude-fullstack/
 
 ---
 
-## Como rodar o backend
+## Como rodar o projeto
 
-### 1. Ir para a raiz do projeto
+## 1. Clonar o repositório
 
 ```bash
+git clone <URL_DO_REPOSITORIO>
 cd ti-saude-fullstack
 ```
 
-### 2. Subir os containers
+---
+
+## 2. Subir o backend Laravel
+
+### Subir os containers
 
 ```bash
 docker compose up -d --build
 ```
 
-### 3. Entrar no container do Laravel
+### Verificar se os containers estão rodando
+
+```bash
+docker compose ps
+```
+
+### Entrar no container do Laravel
 
 ```bash
 docker compose exec app bash
 ```
 
-### 4. Instalar dependências do backend
+### Instalar dependências do backend
 
 ```bash
 composer install
 ```
 
-### 5. Criar o arquivo `.env`
-
-Se ainda não existir:
+### Criar o arquivo `.env`
 
 ```bash
 cp .env.example .env
 ```
 
-### 6. Gerar a chave da aplicação
+### Gerar a chave da aplicação
 
 ```bash
 php artisan key:generate
 ```
 
-### 7. Gerar a chave JWT
+### Gerar a chave JWT
 
 ```bash
 php artisan jwt:secret
 ```
 
-### 8. Rodar as migrations
+### Rodar migrations e seeders
 
 ```bash
-php artisan migrate
+php artisan migrate --seed
 ```
 
-### 9. Limpar cache
+### Limpar cache da aplicação
 
 ```bash
 php artisan optimize:clear
 ```
 
+### Gerar documentação Swagger
+
+```bash
+php artisan l5-swagger:generate
+```
+
 ---
 
-## Como rodar o frontend
+## Usuário padrão para teste
 
-### 1. Abrir outro terminal
+Após executar `php artisan migrate --seed`, o sistema criará automaticamente um usuário de teste:
 
-### 2. Ir para a pasta do frontend
+- **E-mail:** `rafael@email.com`
+- **Senha:** `123456`
+
+Esse usuário pode ser utilizado diretamente no frontend ou nos testes da API.
+
+---
+
+## 3. Rodar o frontend Quasar
+
+> Importante: o frontend foi validado com **Node.js 22.22.0**.
+
+Abra outro terminal e rode:
 
 ```bash
 cd frontend
-```
-
-### 3. Instalar dependências
-
-```bash
 npm install
-```
-
-### 4. Rodar o projeto
-
-```bash
 npm run dev
 ```
 
@@ -123,25 +140,25 @@ npm run dev
 
 ### Backend API
 
-```bash
+```text
 http://localhost:8000
 ```
 
 ### Swagger
 
-```bash
+```text
 http://localhost:8000/api/documentation
 ```
 
 ### Frontend Web
 
-```bash
+```text
 http://localhost:9000
 ```
 
 ### phpMyAdmin
 
-```bash
+```text
 http://localhost:8080
 ```
 
@@ -149,24 +166,40 @@ http://localhost:8080
 
 ## Banco de dados local
 
-- Host: `db`
-- Banco: `ti_saude`
+- **Host:** `db`
+- **Banco:** `ti_saude`
+- **Usuário:** `laravel`
+- **Senha:** `root`
+
+### Acesso pelo phpMyAdmin
+
+Você pode acessar com:
+
+#### Opção 1
+
+- Usuário: `root`
+- Senha: `root`
+
+#### Opção 2
+
 - Usuário: `laravel`
 - Senha: `root`
 
 ---
 
-## Fluxo para testar
+## Fluxo sugerido para avaliação
 
-### 1. Registrar usuário
+### 1. Testar via Swagger ou Postman
 
-Endpoint:
+#### Registrar usuário
 
-```bash
+**POST**
+
+```text
 POST /api/register
 ```
 
-Exemplo de body:
+Body de exemplo:
 
 ```json
 {
@@ -176,15 +209,15 @@ Exemplo de body:
 }
 ```
 
-### 2. Fazer login
+#### Fazer login
 
-Endpoint:
+**POST**
 
-```bash
+```text
 POST /api/login
 ```
 
-Exemplo de body:
+Body de exemplo:
 
 ```json
 {
@@ -193,14 +226,32 @@ Exemplo de body:
 }
 ```
 
-### 3. Usar o token
+#### Consultar usuário autenticado
 
-O frontend já salva o token automaticamente após o login.
+**GET**
 
-### 4. Testar o CRUD de pacientes
+```text
+GET /api/me
+```
+
+> Utilizar o token JWT retornado no login.
+
+#### Testar CRUD de pacientes
+
+Endpoints disponíveis:
+
+- `GET /api/pacientes`
+- `POST /api/pacientes`
+- `PUT /api/pacientes/{id}`
+- `DELETE /api/pacientes/{id}`
+
+---
+
+### 2. Testar via frontend
 
 No frontend web é possível:
 
+- realizar login
 - listar pacientes
 - cadastrar paciente
 - editar paciente
@@ -210,16 +261,16 @@ No frontend web é possível:
 
 ## Funcionalidades implementadas
 
-### Backend
+## Backend
 
 - Cadastro de usuário
 - Login com JWT
 - Consulta de usuário autenticado
 - Logout
 - CRUD de pacientes
-- Swagger
+- Documentação Swagger
 
-### Frontend
+## Frontend
 
 - Tela de login
 - Proteção de rota
@@ -238,7 +289,7 @@ No frontend web é possível:
 docker compose down
 ```
 
-### Ver logs
+### Ver logs dos containers
 
 ```bash
 docker compose logs -f
@@ -252,12 +303,13 @@ docker compose exec app bash
 
 ---
 
-## Observações
+## Observações importantes
 
 - O backend roda com Docker.
 - O frontend roda localmente com Quasar.
 - Para usar o frontend, o backend precisa estar rodando.
-- O projeto foi construído com foco no desafio técnico.
+- O frontend foi configurado para uso com **Node.js 22.22.0 ou superior**.
+- O projeto foi desenvolvido com foco no desafio técnico e facilidade de avaliação.
 
 ---
 
