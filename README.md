@@ -308,7 +308,7 @@ No frontend web é possível:
 
 ## Complemento técnico: backend adicional em NestJS
 
-Caso o avaliador queira analisar também a implementação em **NestJS**, ela está disponível na pasta:
+Caso queira analisar também a implementação em **NestJS**, ela está disponível na pasta:
 
 ```bash
 backend-nest/
