@@ -2,7 +2,7 @@
 
 Projeto fullstack desenvolvido como desafio técnico, contendo:
 
-- **Backend:** Laravel
+- **Backend principal:** Laravel
 - **Autenticação:** JWT
 - **Documentação da API:** Swagger
 - **Frontend web:** Quasar
@@ -27,7 +27,8 @@ Antes de começar, é necessário ter instalado:
 
 ```bash
 ti-saude-fullstack/
-├── backend/
+├── backend/         # Backend principal em Laravel
+├── backend-nest/    # Backend adicional em NestJS
 ├── frontend/
 ├── docker/
 ├── docker-compose.yml
@@ -36,7 +37,29 @@ ti-saude-fullstack/
 
 ---
 
-## Como rodar o projeto
+## Visão geral da entrega
+
+### Entrega principal
+
+A entrega oficial do desafio está implementada com:
+
+- **Backend:** Laravel
+- **Frontend:** Quasar
+- **Banco principal:** `ti_saude`
+
+### Complemento técnico
+
+Além da entrega principal, também foi desenvolvido um **backend adicional em NestJS**, com banco separado, como demonstração extra de conhecimento técnico.
+
+- **Backend adicional:** NestJS
+- **Banco adicional:** `ti_saude_nest`
+
+> Para avaliação principal, considerar o fluxo **Laravel + Quasar**.  
+> Caso o avaliador deseje, também é possível testar a implementação complementar em **NestJS**.
+
+---
+
+## Como rodar o projeto principal
 
 ## 1. Clonar o repositório
 
@@ -136,7 +159,7 @@ npm run dev
 
 ---
 
-## URLs do projeto
+## URLs do projeto principal
 
 ### Backend API
 
@@ -166,6 +189,8 @@ http://localhost:8080
 
 ## Banco de dados local
 
+### Banco principal Laravel
+
 - **Host:** `db`
 - **Banco:** `ti_saude`
 - **Usuário:** `laravel`
@@ -187,7 +212,7 @@ Você pode acessar com:
 
 ---
 
-## Fluxo sugerido para avaliação
+## Fluxo sugerido para avaliação principal
 
 ### 1. Testar via Swagger ou Postman
 
@@ -261,7 +286,7 @@ No frontend web é possível:
 
 ## Funcionalidades implementadas
 
-## Backend
+### Backend principal (Laravel)
 
 - Cadastro de usuário
 - Login com JWT
@@ -270,7 +295,7 @@ No frontend web é possível:
 - CRUD de pacientes
 - Documentação Swagger
 
-## Frontend
+### Frontend
 
 - Tela de login
 - Proteção de rota
@@ -281,9 +306,69 @@ No frontend web é possível:
 
 ---
 
+## Complemento técnico: backend adicional em NestJS
+
+Caso o avaliador queira analisar também a implementação em **NestJS**, ela está disponível na pasta:
+
+```bash
+backend-nest/
+```
+
+Essa implementação foi desenvolvida como **complemento técnico**, sem substituir a entrega principal em Laravel.
+
+### Banco utilizado pelo NestJS
+
+- **Banco:** `ti_saude_nest`
+
+### Como rodar o backend NestJS
+
+- **Node.js 22.22.0 ou superior**
+  > Importante: o frontend em Quasar foi configurado e testado com **Node 22.22.0**.
+  > O backend adicional em **NestJS** requer **Node 20 ou superior**, portanto o Node 22.22.0 atende ambos.
+
+Abra outro terminal e rode:
+
+```bash
+cd backend-nest
+npm install
+npm run start:dev
+```
+
+### URL da API NestJS
+
+```text
+http://localhost:3000
+```
+
+### Swagger do NestJS
+
+```text
+http://localhost:3000/api/documentation
+```
+
+### Endpoints principais do NestJS
+
+#### Autenticação
+
+- `POST /auth/register`
+- `POST /auth/login`
+- `GET /auth/me`
+
+#### Pacientes
+
+- `GET /pacientes`
+- `POST /pacientes`
+- `GET /pacientes/{id}`
+- `PUT /pacientes/{id}`
+- `DELETE /pacientes/{id}`
+
+> O backend NestJS utiliza banco separado (`ti_saude_nest`) para não interferir na entrega principal em Laravel.
+
+---
+
 ## Comandos úteis
 
-### Parar os containers
+### Parar os containers do projeto principal
 
 ```bash
 docker compose down
@@ -295,7 +380,7 @@ docker compose down
 docker compose logs -f
 ```
 
-### Entrar no container do backend
+### Entrar no container do backend Laravel
 
 ```bash
 docker compose exec app bash
@@ -305,11 +390,12 @@ docker compose exec app bash
 
 ## Observações importantes
 
-- O backend roda com Docker.
+- O backend principal roda com Docker.
 - O frontend roda localmente com Quasar.
-- Para usar o frontend, o backend precisa estar rodando.
+- Para usar o frontend, o backend Laravel precisa estar rodando.
 - O frontend foi configurado para uso com **Node.js 22.22.0 ou superior**.
-- O projeto foi desenvolvido com foco no desafio técnico e facilidade de avaliação.
+- O backend principal para avaliação é o **Laravel**.
+- O **NestJS** está disponível como implementação complementar, caso o avaliador queira analisar outra stack.
 
 ---
 
