@@ -160,6 +160,696 @@
                 ]
             }
         },
+        "/api/consultas": {
+            "get": {
+                "tags": [
+                    "Consultas"
+                ],
+                "summary": "Lista todas as consultas",
+                "operationId": "6b9a9deca0de3bd3c0ce4e567c2bc307",
+                "responses": {
+                    "200": {
+                        "description": "Consultas listadas com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Consultas"
+                ],
+                "summary": "Cria uma nova consulta",
+                "operationId": "8a267506eaf2ad9fbd69dd08002284a9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "data",
+                                    "hora",
+                                    "paciente_id",
+                                    "medico_id"
+                                ],
+                                "properties": {
+                                    "cons_codigo": {
+                                        "type": "string",
+                                        "example": "CONS001"
+                                    },
+                                    "data": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2026-04-22"
+                                    },
+                                    "hora": {
+                                        "type": "string",
+                                        "example": "14:30"
+                                    },
+                                    "particular": {
+                                        "type": "boolean",
+                                        "example": false
+                                    },
+                                    "paciente_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "medico_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "plano_saude_id": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "nullable": true
+                                    },
+                                    "procedimentos": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Consulta criada com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/consultas/{id}": {
+            "get": {
+                "tags": [
+                    "Consultas"
+                ],
+                "summary": "Busca uma consulta por ID",
+                "operationId": "a822674ac6c730b13aba834afb2ca4f3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Consulta encontrada com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Consulta não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Consultas"
+                ],
+                "summary": "Atualiza uma consulta",
+                "operationId": "31bcc74db8e153d2a0cd9e2d2b106778",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "data",
+                                    "hora",
+                                    "paciente_id",
+                                    "medico_id"
+                                ],
+                                "properties": {
+                                    "cons_codigo": {
+                                        "type": "string",
+                                        "example": "CONS001"
+                                    },
+                                    "data": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2026-04-22"
+                                    },
+                                    "hora": {
+                                        "type": "string",
+                                        "example": "14:30"
+                                    },
+                                    "particular": {
+                                        "type": "boolean",
+                                        "example": false
+                                    },
+                                    "paciente_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "medico_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "plano_saude_id": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "nullable": true
+                                    },
+                                    "procedimentos": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Consulta atualizada com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Consulta não encontrada"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Consultas"
+                ],
+                "summary": "Remove uma consulta",
+                "operationId": "d95d7edacdc5ea30c86750bd6ef9ae95",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Consulta removida com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Consulta não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/especialidades": {
+            "get": {
+                "tags": [
+                    "Especialidades"
+                ],
+                "summary": "Lista todas as especialidades",
+                "operationId": "6584440eceb4e8121978fbb85682918b",
+                "responses": {
+                    "200": {
+                        "description": "Especialidades listadas com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Especialidades"
+                ],
+                "summary": "Cria uma nova especialidade",
+                "operationId": "815ad5cf55785ef25a707dc07d1fdf1b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "espec_nome"
+                                ],
+                                "properties": {
+                                    "espec_codigo": {
+                                        "type": "string",
+                                        "example": "CARD"
+                                    },
+                                    "espec_nome": {
+                                        "type": "string",
+                                        "example": "Cardiologia"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Especialidade criada com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/especialidades/{id}": {
+            "get": {
+                "tags": [
+                    "Especialidades"
+                ],
+                "summary": "Busca uma especialidade por ID",
+                "operationId": "402e61363f39342d5f560324063917b6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Especialidade encontrada com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Especialidade não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Especialidades"
+                ],
+                "summary": "Atualiza uma especialidade",
+                "operationId": "b0468a2dc51d9af3301f0eff5e987272",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "espec_nome"
+                                ],
+                                "properties": {
+                                    "espec_codigo": {
+                                        "type": "string",
+                                        "example": "CARD"
+                                    },
+                                    "espec_nome": {
+                                        "type": "string",
+                                        "example": "Cardiologia Intervencionista"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Especialidade atualizada com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Especialidade não encontrada"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Especialidades"
+                ],
+                "summary": "Remove uma especialidade",
+                "operationId": "14e81c3265ef55591db4be821cd0c651",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Especialidade removida com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Especialidade não encontrada"
+                    },
+                    "409": {
+                        "description": "Especialidade possui médicos vinculados"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/medicos": {
+            "get": {
+                "tags": [
+                    "Médicos"
+                ],
+                "summary": "Lista todos os médicos",
+                "operationId": "c7cebce3506c331d127872eee61c4ded",
+                "responses": {
+                    "200": {
+                        "description": "Médicos listados com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Médicos"
+                ],
+                "summary": "Cria um novo médico",
+                "operationId": "2060ae9d7900a55d432bd7430d5692da",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "med_nome",
+                                    "med_crm",
+                                    "especialidade_id"
+                                ],
+                                "properties": {
+                                    "med_codigo": {
+                                        "type": "string",
+                                        "example": "MED001"
+                                    },
+                                    "med_nome": {
+                                        "type": "string",
+                                        "example": "Dr. Carlos Souza"
+                                    },
+                                    "med_crm": {
+                                        "type": "string",
+                                        "example": "CRM-PE 12345"
+                                    },
+                                    "especialidade_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Médico criado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/medicos/{id}": {
+            "get": {
+                "tags": [
+                    "Médicos"
+                ],
+                "summary": "Busca um médico por ID",
+                "operationId": "c8f64cc4784874708865f7a2e59acbf3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Médico encontrado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Médico não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Médicos"
+                ],
+                "summary": "Atualiza um médico",
+                "operationId": "0263d24c7869aded8d123a8f045ab68d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "med_nome",
+                                    "med_crm",
+                                    "especialidade_id"
+                                ],
+                                "properties": {
+                                    "med_codigo": {
+                                        "type": "string",
+                                        "example": "MED001"
+                                    },
+                                    "med_nome": {
+                                        "type": "string",
+                                        "example": "Dr. Carlos Souza"
+                                    },
+                                    "med_crm": {
+                                        "type": "string",
+                                        "example": "CRM-PE 12345"
+                                    },
+                                    "especialidade_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Médico atualizado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Médico não encontrado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Médicos"
+                ],
+                "summary": "Remove um médico",
+                "operationId": "ecda6035bb1152f7f6297e1ab836889c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Médico removido com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Médico não encontrado"
+                    },
+                    "409": {
+                        "description": "Médico possui consultas vinculadas"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/pacientes": {
             "get": {
                 "tags": [
@@ -195,7 +885,7 @@
                                 "required": [
                                     "nome",
                                     "data_nascimento",
-                                    "telefone"
+                                    "telefones"
                                 ],
                                 "properties": {
                                     "nome": {
@@ -207,9 +897,12 @@
                                         "format": "date",
                                         "example": "1995-08-10"
                                     },
-                                    "telefone": {
-                                        "type": "string",
-                                        "example": "81999999999"
+                                    "telefones": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "example": "81999990001"
+                                        }
                                     }
                                 },
                                 "type": "object"
@@ -246,7 +939,6 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID do paciente",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -281,7 +973,6 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID do paciente",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -297,7 +988,7 @@
                                 "required": [
                                     "nome",
                                     "data_nascimento",
-                                    "telefone"
+                                    "telefones"
                                 ],
                                 "properties": {
                                     "nome": {
@@ -309,9 +1000,12 @@
                                         "format": "date",
                                         "example": "1995-08-10"
                                     },
-                                    "telefone": {
-                                        "type": "string",
-                                        "example": "81888888888"
+                                    "telefones": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "example": "81999990001"
+                                        }
                                     }
                                 },
                                 "type": "object"
@@ -349,7 +1043,6 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID do paciente",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -366,6 +1059,638 @@
                     },
                     "404": {
                         "description": "Paciente não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/planos-saude": {
+            "get": {
+                "tags": [
+                    "Planos de Saúde"
+                ],
+                "summary": "Lista todos os planos de saúde",
+                "operationId": "08c06c7b4a3c6d45c117c106b4b68243",
+                "responses": {
+                    "200": {
+                        "description": "Planos listados com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Planos de Saúde"
+                ],
+                "summary": "Cria um novo plano de saúde",
+                "operationId": "8b05c7e6b326b8bab04af9e6c3e692f1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "plano_descricao"
+                                ],
+                                "properties": {
+                                    "plano_codigo": {
+                                        "type": "string",
+                                        "example": "UNIMED"
+                                    },
+                                    "plano_descricao": {
+                                        "type": "string",
+                                        "example": "Unimed Nacional"
+                                    },
+                                    "plano_telefone": {
+                                        "type": "string",
+                                        "example": "08000001234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Plano criado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/planos-saude/{id}": {
+            "get": {
+                "tags": [
+                    "Planos de Saúde"
+                ],
+                "summary": "Busca um plano de saúde por ID",
+                "operationId": "5aba129ef993bbf346bb0d8e02819b5f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Plano encontrado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Plano não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Planos de Saúde"
+                ],
+                "summary": "Atualiza um plano de saúde",
+                "operationId": "0c0b0b451be86fcf5d20d2008e45fc5d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "plano_descricao"
+                                ],
+                                "properties": {
+                                    "plano_codigo": {
+                                        "type": "string",
+                                        "example": "UNIMED"
+                                    },
+                                    "plano_descricao": {
+                                        "type": "string",
+                                        "example": "Unimed Nacional"
+                                    },
+                                    "plano_telefone": {
+                                        "type": "string",
+                                        "example": "08000001234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Plano atualizado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Plano não encontrado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Planos de Saúde"
+                ],
+                "summary": "Remove um plano de saúde",
+                "operationId": "5eca697e12141f13a47b71b7490a1317",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Plano removido com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Plano não encontrado"
+                    },
+                    "409": {
+                        "description": "Plano possui vínculos com pacientes"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/procedimentos": {
+            "get": {
+                "tags": [
+                    "Procedimentos"
+                ],
+                "summary": "Lista todos os procedimentos",
+                "operationId": "05be4a73e7fe656fb790f904c0e88c56",
+                "responses": {
+                    "200": {
+                        "description": "Procedimentos listados com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Procedimentos"
+                ],
+                "summary": "Cria um novo procedimento",
+                "operationId": "8fc23ff5564c5bfdda8c63ce7e1db95a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "proc_nome",
+                                    "proc_valor"
+                                ],
+                                "properties": {
+                                    "proc_codigo": {
+                                        "type": "string",
+                                        "example": "PROC001"
+                                    },
+                                    "proc_nome": {
+                                        "type": "string",
+                                        "example": "Eletrocardiograma"
+                                    },
+                                    "proc_valor": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 150
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Procedimento criado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/procedimentos/{id}": {
+            "get": {
+                "tags": [
+                    "Procedimentos"
+                ],
+                "summary": "Busca um procedimento por ID",
+                "operationId": "080b5728b9d180869b215a049b0fb937",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Procedimento encontrado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Procedimento não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Procedimentos"
+                ],
+                "summary": "Atualiza um procedimento",
+                "operationId": "6406233d18a13d4e1a6fd8e0b3d7d58f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "proc_nome",
+                                    "proc_valor"
+                                ],
+                                "properties": {
+                                    "proc_codigo": {
+                                        "type": "string",
+                                        "example": "PROC001"
+                                    },
+                                    "proc_nome": {
+                                        "type": "string",
+                                        "example": "Eletrocardiograma"
+                                    },
+                                    "proc_valor": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 150
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Procedimento atualizado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Procedimento não encontrado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Procedimentos"
+                ],
+                "summary": "Remove um procedimento",
+                "operationId": "4df7cbd2228bf0bfb94624cad40739fc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Procedimento removido com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Procedimento não encontrado"
+                    },
+                    "409": {
+                        "description": "Procedimento vinculado a consultas"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/vinculos": {
+            "get": {
+                "tags": [
+                    "Vínculos"
+                ],
+                "summary": "Lista todos os vínculos paciente-plano",
+                "operationId": "ef2467b27638ff94d14807205a8e8ca3",
+                "responses": {
+                    "200": {
+                        "description": "Vínculos listados com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Vínculos"
+                ],
+                "summary": "Cria um novo vínculo entre paciente e plano de saúde",
+                "operationId": "ca121e38eed226a4d04e7968178debb9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nr_contrato",
+                                    "paciente_id",
+                                    "plano_saude_id"
+                                ],
+                                "properties": {
+                                    "nr_contrato": {
+                                        "type": "string",
+                                        "example": "CONT-2026-001"
+                                    },
+                                    "paciente_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "plano_saude_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Vínculo criado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/vinculos/{id}": {
+            "get": {
+                "tags": [
+                    "Vínculos"
+                ],
+                "summary": "Busca um vínculo por ID",
+                "operationId": "6aa53ded9fdb16246d5863c197cb34f6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Vínculo encontrado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Vínculo não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Vínculos"
+                ],
+                "summary": "Atualiza um vínculo",
+                "operationId": "3e9f89736073a1c3581db4f07af877fe",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nr_contrato",
+                                    "paciente_id",
+                                    "plano_saude_id"
+                                ],
+                                "properties": {
+                                    "nr_contrato": {
+                                        "type": "string",
+                                        "example": "CONT-2026-002"
+                                    },
+                                    "paciente_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "plano_saude_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Vínculo atualizado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Vínculo não encontrado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Vínculos"
+                ],
+                "summary": "Remove um vínculo",
+                "operationId": "57c36b241f5e514b1b9c5f0b585c2818",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Vínculo removido com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "404": {
+                        "description": "Vínculo não encontrado"
                     }
                 },
                 "security": [
@@ -391,8 +1716,32 @@
             "description": "Autenticação"
         },
         {
+            "name": "Consultas",
+            "description": "Consultas"
+        },
+        {
+            "name": "Especialidades",
+            "description": "Especialidades"
+        },
+        {
+            "name": "Médicos",
+            "description": "Médicos"
+        },
+        {
             "name": "Pacientes",
             "description": "Pacientes"
+        },
+        {
+            "name": "Planos de Saúde",
+            "description": "Planos de Saúde"
+        },
+        {
+            "name": "Procedimentos",
+            "description": "Procedimentos"
+        },
+        {
+            "name": "Vínculos",
+            "description": "Vínculos"
         }
     ]
 }

@@ -3,27 +3,25 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Paciente extends Model
+class Medico extends Model
 {
     protected $fillable = [
-        'nome',
-        'data_nascimento',
+        'med_codigo',
+        'med_nome',
+        'med_crm',
+        'especialidade_id',
     ];
 
-    public function telefones(): HasMany
+    public function especialidade(): BelongsTo
     {
-        return $this->hasMany(PacienteTelefone::class);
+        return $this->belongsTo(Especialidade::class);
     }
 
     public function consultas(): HasMany
     {
         return $this->hasMany(Consulta::class);
-    }
-
-    public function vinculos(): HasMany
-    {
-        return $this->hasMany(Vinculo::class);
     }
 }
