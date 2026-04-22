@@ -261,14 +261,140 @@ GET /api/me
 
 > Utilizar o token JWT retornado no login.
 
-#### Testar CRUD de pacientes
+#### Pacientes
 
-Endpoints disponíveis:
+- `GET    /api/pacientes` — listar todos
+- `POST   /api/pacientes` — criar
+- `GET    /api/pacientes/{id}` — buscar por ID
+- `PUT    /api/pacientes/{id}` — atualizar
+- `DELETE /api/pacientes/{id}` — remover
 
-- `GET /api/pacientes`
-- `POST /api/pacientes`
-- `PUT /api/pacientes/{id}`
-- `DELETE /api/pacientes/{id}`
+Body de exemplo (POST/PUT):
+
+```json
+{
+  "nome": "Ana Paula Ferreira",
+  "data_nascimento": "1990-05-20",
+  "telefones": ["(81) 99999-1111", "(81) 98888-2222"]
+}
+```
+
+#### Especialidades
+
+- `GET    /api/especialidades`
+- `POST   /api/especialidades`
+- `GET    /api/especialidades/{id}`
+- `PUT    /api/especialidades/{id}`
+- `DELETE /api/especialidades/{id}`
+
+Body de exemplo:
+
+```json
+{
+  "espec_codigo": "CARD",
+  "espec_nome": "Cardiologia"
+}
+```
+
+#### Médicos
+
+- `GET    /api/medicos`
+- `POST   /api/medicos`
+- `GET    /api/medicos/{id}`
+- `PUT    /api/medicos/{id}`
+- `DELETE /api/medicos/{id}`
+
+Body de exemplo:
+
+```json
+{
+  "med_codigo": "MED001",
+  "med_nome": "Dr. Carlos Eduardo Souza",
+  "med_crm": "CRM-PE 12345",
+  "especialidade_id": 1
+}
+```
+
+#### Consultas
+
+- `GET    /api/consultas`
+- `POST   /api/consultas`
+- `GET    /api/consultas/{id}`
+- `PUT    /api/consultas/{id}`
+- `DELETE /api/consultas/{id}`
+
+Body de exemplo:
+
+```json
+{
+  "cons_codigo": "CONS-001",
+  "data": "2026-04-22",
+  "hora": "14:30",
+  "particular": false,
+  "paciente_id": 1,
+  "medico_id": 1,
+  "plano_saude_id": 2,
+  "procedimentos": [1, 3]
+}
+```
+
+> Quando `particular` for `true`, `plano_saude_id` deve ser `null`.
+
+#### Procedimentos
+
+- `GET    /api/procedimentos`
+- `POST   /api/procedimentos`
+- `GET    /api/procedimentos/{id}`
+- `PUT    /api/procedimentos/{id}`
+- `DELETE /api/procedimentos/{id}`
+
+Body de exemplo:
+
+```json
+{
+  "proc_codigo": "ECG",
+  "proc_nome": "Eletrocardiograma",
+  "proc_valor": "120.00"
+}
+```
+
+#### Planos de Saúde
+
+- `GET    /api/planos-saude`
+- `POST   /api/planos-saude`
+- `GET    /api/planos-saude/{id}`
+- `PUT    /api/planos-saude/{id}`
+- `DELETE /api/planos-saude/{id}`
+
+Body de exemplo:
+
+```json
+{
+  "plano_codigo": "UNIMED",
+  "plano_descricao": "Unimed Recife",
+  "plano_telefone": "08007222066"
+}
+```
+
+#### Vínculos (Paciente ↔ Plano de Saúde)
+
+- `GET    /api/vinculos`
+- `POST   /api/vinculos`
+- `GET    /api/vinculos/{id}`
+- `PUT    /api/vinculos/{id}`
+- `DELETE /api/vinculos/{id}`
+
+Body de exemplo:
+
+```json
+{
+  "paciente_id": 1,
+  "plano_saude_id": 2,
+  "nr_contrato": "UNI-2024-001"
+}
+```
+
+> Cada paciente pode ter vínculo com múltiplos planos, mas não dois vínculos com o mesmo plano.
 
 ---
 
@@ -277,10 +403,13 @@ Endpoints disponíveis:
 No frontend web é possível:
 
 - realizar login
-- listar pacientes
-- cadastrar paciente
-- editar paciente
-- excluir paciente
+- gerenciar pacientes (listar, cadastrar, editar, excluir)
+- gerenciar especialidades
+- gerenciar médicos
+- gerenciar consultas
+- gerenciar procedimentos
+- gerenciar planos de saúde
+- gerenciar vínculos paciente/plano
 
 ---
 
@@ -288,21 +417,32 @@ No frontend web é possível:
 
 ### Backend principal (Laravel)
 
-- Cadastro de usuário
-- Login com JWT
-- Consulta de usuário autenticado
-- Logout
-- CRUD de pacientes
-- Documentação Swagger
+- Cadastro de usuário e login com JWT
+- Consulta de usuário autenticado e logout
+- CRUD completo de pacientes (com múltiplos telefones)
+- CRUD completo de especialidades
+- CRUD completo de médicos (vinculados a especialidade)
+- CRUD completo de consultas (com procedimentos via tabela pivot)
+- CRUD completo de procedimentos
+- CRUD completo de planos de saúde
+- CRUD completo de vínculos paciente/plano
+- Documentação Swagger em `/api/documentation`
+- Rate limiting nas rotas de autenticação (5 req/min)
+- Sanitização de HTML em todos os inputs via Form Requests
+- Handler de exceções com respostas JSON limpas (sem stack trace)
+- Configuração de CORS via variável de ambiente
 
 ### Frontend
 
-- Tela de login
-- Proteção de rota
-- Listagem de pacientes
-- Cadastro de pacientes
-- Edição de pacientes
-- Exclusão de pacientes
+- Tela de login com redirecionamento automático ao expirar token
+- Proteção de rotas autenticadas
+- Módulo de Pacientes com suporte a múltiplos telefones
+- Módulo de Especialidades
+- Módulo de Médicos
+- Módulo de Consultas (tipo particular/plano, vínculo com procedimentos)
+- Módulo de Procedimentos
+- Módulo de Planos de Saúde
+- Módulo de Vínculos
 
 ---
 
